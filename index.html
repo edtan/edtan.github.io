@@ -5,6 +5,15 @@ description: Toronto-based software developer
 <h2>About Me</h2>
 <p>Hi, I'm a Toronto-based software developer and co-founder of <a href="https://techorrect.com">Techorrect</a>.  Previously, I did R&D and software development for <a href="https://mapsted.com">Mapsted</a> for a bit - check out their app on the Google Play store!  And before that, I was an IT consultant with <a href="https://fastenterprises.com">Fast Enterprises</a>, and studied <a href="http://www.mast.queensu.ca/meng/">Mathematics and Engineering</a> at Queen's University.</p>
 
+<h2>Blog posts</h2>
+<ul class="blog-post-list">
+  {% for post in site.posts %}
+    <li>
+      {{ post.date | date: "%m/%d/%Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
 <h2>Now</h2>
 <p>This is what I'm doing <a href="http://nownownow.com/about">now</a> (Mar. 2018).</p>
 <ul>
@@ -19,13 +28,4 @@ description: Toronto-based software developer
 	<li>Learning jazz standards</li>
 	<li>Studying operating systems via <a href="https://pdos.csail.mit.edu/6.828/2017/">xv6</a> labs</li>
 	<li>Writing an Android app: <a href="https://play.google.com/store/apps/details?id=ca.edtan.bubbikes">BubBikes</a></li>
-</ul>
-
-<h2>Blog posts</h2>
-<ul class="blog-post-list">
-  {% for post in site.posts %}
-    <li>
-      {{ post.date | date: "%m/%d/%Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
 </ul>

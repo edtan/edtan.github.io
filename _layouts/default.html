@@ -17,8 +17,10 @@
     {% endif %}
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    {% seo %}
   </head>
   <body>
+    {% include navigation.html %}
     {{ content }}
   </body>
 </html>

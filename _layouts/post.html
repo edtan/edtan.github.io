@@ -4,10 +4,7 @@ layout: default
 
 <h2 class="header">{{ page.title }}</h2>
 <p class="blog-author">
-     posted by
-     {% assign author = site.authors | where: 'short_name', page.author | first %}
-     <a href="{{ author.url | replace: 'index.html', '' }}">{{ author.name }}</a>
-     on {{ page.date | date: "%B %-d, %Y" }}
+     {{ page.date | date: "%B %-d, %Y" }}
 </p>
 <hr/>
 <div class="blog-post-content">

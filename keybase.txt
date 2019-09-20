@@ -1,0 +1,59 @@
+edtan
+Ed Tan
+Toronto
+==================================================================
+https://keybase.io/edtan
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://edtan.ca
+  * I am edtan (https://keybase.io/edtan) on keybase.
+  * I have a public key ASCKZKLzvsosng8gSzSRMc6HTqfptH_RU1g2iFCW2pB8jAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01208a64a2f3beca2c9e0f204b349131ce874ea7e9b47fd1535836885096da907c8c0a",
+      "host": "keybase.io",
+      "kid": "01208a64a2f3beca2c9e0f204b349131ce874ea7e9b47fd1535836885096da907c8c0a",
+      "uid": "1b35aa1a2344440ea524168c709cc519",
+      "username": "edtan"
+    },
+    "merkle_root": {
+      "ctime": 1568987327,
+      "hash": "893d1295d7458758ce2da5c7e55235629bc058dfdc380508c35c51c9460872c8e916df2a66849b1249d73ecb4a9315b75f8133875c6d049eab0a5db01c29c0f6",
+      "hash_meta": "9bef42d1d9349e30c8386030b8b0b6a7017446450ef92503ffcdd8fe765eebcd",
+      "seqno": 7639332
+    },
+    "service": {
+      "entropy": "AbQto/jh9nZesjkIEsHZrxun",
+      "hostname": "edtan.ca",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.4.0"
+  },
+  "ctime": 1568987345,
+  "expire_in": 504576000,
+  "prev": "06fd0fceb41f249cf28ed799d655db3a0e045705c24e0767271a632113f6ee2a",
+  "seqno": 19,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgimSi877KLJ4PIEs0kTHOh06n6bR/0VNYNohQltqQfIwKp3BheWxvYWTESpcCE8QgBv0PzrQfJJzyjteZ1lXbOg4EVwXCTgdnJxpjIRP27irEIC/DeaEIcR2NftIjqHsOKCS2PdzTQHuurcTm+YVsK8UFAgHCo3NpZ8RAwUPPDJuPs+f1GxVETisnqZoZmuwnxfRFWL/zkNRjR7ioUkTcJF4IALH4pRzqUoiopBnzip4AfaYeiKCEcwXODKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIL8LrtjeuUPUpIVkBiAeH6wveIQYoblTpwOHMcmsr2tyo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/edtan
+
+==================================================================

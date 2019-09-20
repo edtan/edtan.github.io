@@ -2,9 +2,6 @@
 layout: none
 permalink: .well-known/keybase.txt
 ---
-edtan
-Ed Tan
-Toronto
 ==================================================================
 https://keybase.io/edtan
 --------------------------------------------------------------------

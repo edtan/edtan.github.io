@@ -1,5 +1,6 @@
 ---
 layout: none
+permalink: keybase.txt
 ---
 ==================================================================
 https://keybase.io/edtan

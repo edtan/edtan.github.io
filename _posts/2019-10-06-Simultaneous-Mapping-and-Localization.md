@@ -16,7 +16,7 @@ A common sensor used in SLAM algorithms is lidar, which uses lasers to obtain
 distance measurements.  Some SLAM algorithms also incorporate knowledge of the
 robot's movement (e.g. if you are controlling the robot's velocity and
 direction), while other SLAM algorithms can work with only the (lidar) distance
-measurments.  Even without direct knowlege of the robot's movement, the robot's
+measurements.  Even without direct knowlege of the robot's movement, the robot's
 location and orientation can still be determined because there is a very high
 correlation between consecutive lidar measurements.
 

@@ -12,5 +12,10 @@ defaults:
     values:
       layout: "default"
 
+collections:
+  redirects:
+    output: true
+    permalink: /:path/
+
 plugins:
   - jekyll-seo-tag

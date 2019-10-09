@@ -4,7 +4,7 @@ description: Simultaneous Mapping and Localiation (SLAM)
 
 Recently, I've been getting interested in electronics and hardware again.  After
 several discussions with my brother, a project we've been working on involves
-Simultaneous Mapping and Localization (SLAM).  The idea behind SLAM is to
+Simultaneous Localization and Mapping (SLAM).  The idea behind SLAM is to
 build up a map of an environment while at the same time keeping track of your
 current position within the environment.  As you can imagine, this has many
 applications in robotics - for example, some robot vacuum cleaners use SLAM to

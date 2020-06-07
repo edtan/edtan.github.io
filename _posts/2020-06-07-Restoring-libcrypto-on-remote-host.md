@@ -57,9 +57,8 @@ python -c 'import ssl; print(ssl.OPENSSL_VERSION)'
 
 Additionally, I used strace to see which versions were loaded when
 trying to use the requests library, and it showed that after opening
-/etc/ld.so.cache, Python then opened the old versions
-/lib64/libssl.so.10 and /lib64/libcrypto.so.10.  Thus, it seems like
-Python would either need to be updated or recompiled to link to a newer
-version of openssl, both which didn't seem like a good idea to do as I'm
-not sure how it would affect CentOS 7.  In the end, we did not need to
-use an updated version of libssl.
+/etc/ld.so.cache, Python then opened the old /lib64/libssl.so.10 and
+/lib64/libcrypto.so.10.  Thus, Python would either need to be updated or
+recompiled to link to a newer version of openssl; both which didn't seem
+like a good idea, as I'm not sure how it would affect CentOS 7.  In the
+end, we did not need to use an updated version of libssl.

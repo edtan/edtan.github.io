@@ -1,4 +1,5 @@
 ---
+title: Restoring libcrypto on remote host
 description: How to restore libcrypto (or any other shared libraries) after accidentally deleting it on a remote server
 ---
 

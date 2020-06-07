@@ -1,6 +1,5 @@
 ---
-description: How to restore libcrypto (or any other shared libraries)
-after accidentally deleting it on a remote server
+description: How to restore libcrypto (or any other shared libraries) after accidentally deleting it on a remote server
 ---
 
 Recently, I ran into a situation where I was trying to update openssl on

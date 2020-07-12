@@ -115,13 +115,13 @@ all the names.  If we just use the `.` (identity) filter, will we get
 back a single JSON array.
 
 ```sh
-$ echo '[{"name": "Ed"}, {"name": "foo"}]' | jq '.'
+$ echo '[{"name": "Ed"}, {"name": "baz"}]' | jq '.'
 [
   {
     "name": "Ed"
   },
   {
-    "name": "foo"
+    "name": "baz"
   }
 ]
 ```

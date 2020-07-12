@@ -112,7 +112,7 @@ object_identifier({"name": "Ed"}, "name")
 
 Next, let's try to see how the `.[]` (array/object value iterator)
 filter works.  Suppose we had a JSON array of names, and wanted to list
-all the names.  If we just use the `.` (identity) filter, will we get
+all the names.  If we just use the `.` (identity) filter, we will get
 back a single JSON array.
 
 ```sh

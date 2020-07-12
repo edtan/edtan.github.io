@@ -34,7 +34,7 @@ script is made of "filters".  A filter is simply a function that takes
 an input, and produces an output.  The `jq` script is then applied to
 streams of JSON data.  What does this all mean?  Let's start with an
 example which uses the [`.` (identity)
-filter](https://stedolan.github.io/jq/manual/#Basicfilters) - it takes
+filter](https://stedolan.github.io/jq/manual/#Identity:.) - it takes
 an input, and returns the input as its output.
 
 `jq` can accept JSON data either through standard input, or from a file.
@@ -93,9 +93,10 @@ identity([1,2,3])
 identity(42)
 ```
 
-We now turn to the "object identifier filter" (e.g. `.foo`) - we now can
-see this as a function that takes the JSON data and a key name as an
-input, then returns the value of the key.  For example:
+We now turn to the [object identifier filter (e.g.
+`.foo`)](https://stedolan.github.io/jq/manual/#ObjectIdentifier-Index:.foo,.foo.bar) -
+we now can see this as a function that takes the JSON data and a key
+name as an input, then returns the value of the key.  For example:
 
 ```sh
 $ echo '{"name": "Ed"}' | jq '.name'
@@ -111,10 +112,11 @@ def object_identifier(input, key):
 object_identifier({"name": "Ed"}, "name")
 ```
 
-Next, let's try to see how the `.[]` (array/object value iterator)
-filter works.  Suppose we had a JSON array of names, and wanted to list
-all the names.  If we just use the `.` (identity) filter, we will get
-back a single JSON array.
+Next, let's try to see how the [`.[]` (array/object value iterator)
+filter](https://stedolan.github.io/jq/manual/#Array/ObjectValueIterator:.[])
+works.  Suppose we had a JSON array of names, and wanted to list all the
+names.  If we just use the `.` (identity) filter, we will get back a
+single JSON array.
 
 ```sh
 $ echo '[{"name": "Ed"}, {"name": "baz"}]' | jq '.'
@@ -163,7 +165,8 @@ print(item1, item2)
 
 Now that we have each item in the array being returned individually, how
 do we use the object_identifier (e.g. `.foo`) filter to get the `name`
-values of each item?  We use the `|` (pipe) operator.  This behaves
+values of each item?  We use the [`|` (pipe)
+operator](https://stedolan.github.io/jq/manual/#Pipe:|).  This behaves
 similarly to Unix pipes - it takes the output from the previous filter,
 and passes it as the input to the next filter.  Thus, we have:
 

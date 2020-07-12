@@ -127,11 +127,11 @@ $ echo '[{"name": "Ed"}, {"name": "baz"}]' | jq '.'
 ]
 ```
 
-We can't do anything with the previous filter, because the previous data
-is still in a single JSON data value (i.e. an array).  We need to split
-the array up into a sequence of items, so that we can run a filter on
-each item.  Recall that `jq` accepts whitespace-separated JSON values.
-This is where the `.[]` filter comes into play:
+We can't do anything with the result of the previous filter, because the
+output is still a single JSON data value (i.e. an array).  We need to
+split the array up into a sequence of items, so that we can run a filter
+on each item.  Recall that `jq` accepts whitespace-separated JSON
+values.  This is where the `.[]` filter comes into play:
 
 ```sh
 $ echo '[{"name": "Ed"}, {"name": "baz"}]' | jq '.[]'

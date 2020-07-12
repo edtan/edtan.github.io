@@ -22,9 +22,10 @@ works.
 
 Instead of thinking of `jq` as a query language to select and identify
 bits and pieces of JSON, think of it as a bunch of for-loops chained
-together, where each for-loop iterates over each item in the JSON.  This
-is similar in principle to the use of `map()` and `filter()` in
-JavaScript.  This idea is well-described as [Sequences as Conventional
+together one after another, where each for-loop iterates over each item
+in the current data in the chain.  This is similar in principle to
+chaining together a series of `map()` and `filter()` in JavaScript.
+This idea is well-described as [Sequences as Conventional
 Interfaces](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-15.html#%_sec_2.2.3)
 in Structure and Interpretation of Computer Programs.
 

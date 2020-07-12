@@ -17,7 +17,8 @@ confused using this query-like interpretation.  I finally got around to
 spending more time reading through the `jq` manual, and I'm posting
 these notes here for my future reference.  Note that this is purely a
 mental model of how `jq` works - I have not read the source code and
-this model is very unlikely how `jq` actually works.
+this Python examples in this post are very unlikely how `jq` actually
+works.
 
 Instead of thinking of `jq` as a query language to select and identify
 bits and pieces of JSON, think of it as a bunch of for-loops chained

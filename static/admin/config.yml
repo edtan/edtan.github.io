@@ -11,6 +11,14 @@ backend:
 
 site_url: https://edtan.ca
 
+## Required at the top level even though both collections override it with an
+## empty value to co-locate media in page bundles. Sveltia refuses to start
+## without it ("The media folder is not defined"). Nothing should actually land
+## here; if files start appearing in static/uploads, a collection override has
+## stopped taking effect.
+media_folder: static/uploads
+public_folder: /uploads
+
 ## Browser-side image processing, applied BEFORE the commit. This is the whole
 ## reason media lives in git: a 12 MP phone photo is downscaled and transcoded to
 ## WebP in the browser, so what lands in the repository is ~400 KB, not ~5 MB.
@@ -46,7 +54,10 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: date, label: Date, widget: datetime }
+      ## type: date is required. Without it the field defaults to a value like
+      ## `2026-08-16T17:09` — no seconds, no timezone — which Hugo refuses to
+      ## parse ("not a parsable date"), breaking the build after publishing.
+      - { name: date, label: Date, widget: datetime, type: date }
       - { name: draft, label: Draft, widget: boolean, default: true }
       - name: cover
         label: Cover image
@@ -91,7 +102,10 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: date, label: Date, widget: datetime }
+      ## type: date is required. Without it the field defaults to a value like
+      ## `2026-08-16T17:09` — no seconds, no timezone — which Hugo refuses to
+      ## parse ("not a parsable date"), breaking the build after publishing.
+      - { name: date, label: Date, widget: datetime, type: date }
       - { name: draft, label: Draft, widget: boolean, default: true }
       - { name: summary, label: Summary, widget: text, required: false }
       - name: tags

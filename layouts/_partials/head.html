@@ -1,0 +1,34 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{{- $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) }}
+<title>{{ $title }}</title>
+
+{{- with or .Description .Summary site.Params.description }}
+<meta name="description" content="{{ . | plainify | truncate 160 }}">
+{{- end }}
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- with resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+{{- end }}
+
+{{- with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
+{{- end }}
+
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+
+{{/* Social card: the cover image, at a fixed 1200w rung. Resolved here rather
+     than through image.html because OG needs one absolute URL, not a srcset. */}}
+{{- with .Params.cover }}
+  {{- with $.Resources.GetMatch . }}
+    {{- with .Resize "1200x webp q82" }}
+<meta property="og:image" content="{{ .Permalink }}">
+<meta name="twitter:card" content="summary_large_image">
+    {{- end }}
+  {{- end }}
+{{- end }}

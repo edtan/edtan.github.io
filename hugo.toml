@@ -1,0 +1,56 @@
+baseURL = "https://edtan.ca/"
+locale = "en-ca"
+title = "Ed Tan"
+copyright = "Ed Tan"
+
+# Actions checks out with fetch-depth: 1, so git metadata is not available.
+enableGitInfo = false
+buildDrafts = false
+buildFuture = false
+
+# No [permalinks] override: URLs follow the bundle directory name, which is what
+# Sveltia's `path: '{{slug}}/index'` creates. A :slug override would derive URLs
+# from the title instead, so renaming a post silently moves its URL.
+
+# Publish only image derivatives that a template actually references, never the
+# 2560 source. Page bundle resources are published by default (publishResources
+# is true unless set), which would put every original into public/ and roughly
+# double the published-size cost per photo against Pages' hard 1 GB cap.
+# Site-wide cascade so CMS-authored posts inherit it without front matter.
+[[cascade]]
+  [cascade.build]
+    publishResources = false
+
+[pagination]
+  pagerSize = 12
+
+# Image processing defaults. Individual derivatives in partials/image.html
+# specify their own quality; this is the fallback.
+[imaging]
+  quality = 82
+  resampleFilter = "Lanczos"
+  hint = "photo"
+
+  # Belt and braces: uploads are re-encoded in the browser by Sveltia, which
+  # already drops EXIF. This keeps GPS out of any image added by other means.
+  [imaging.exif]
+    disableDate = true
+    disableLatLong = true
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true          # <picture>/<figure> emitted from partials in content
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[services.rss]
+  limit = 20

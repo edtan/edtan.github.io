@@ -1,0 +1,43 @@
+{{ define "main" }}
+{{ with .Content }}<div class="prose intro">{{ . }}</div>{{ end }}
+
+{{- with (where site.RegularPages "Section" "photos") }}
+<section>
+  <h2><a href="{{ "/photos/" | relURL }}">Photos</a></h2>
+  <ul class="grid">
+    {{- range $i, $p := first 6 . }}
+    <li>
+      <a href="{{ $p.RelPermalink }}">
+        {{- with $p.Params.cover }}
+          {{ partial "image.html" (dict
+              "page"  $p
+              "src"   .
+              "alt"   ""
+              "eager" (lt $i 2)
+              "sizes" "(min-width: 60rem) 28rem, (min-width: 40rem) 45vw, 100vw"
+          ) }}
+        {{- end }}
+        <span class="grid-title">{{ $p.Title }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- with (where site.RegularPages "Section" "posts") }}
+<section>
+  <h2><a href="{{ "/posts/" | relURL }}">Writing</a></h2>
+  <ul class="entry-list">
+    {{- range first 5 . }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <span class="meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      </span>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+{{ end }}

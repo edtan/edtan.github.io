@@ -1,2 +1,16 @@
-.jekyll-cache/
-_site/
+# Hugo build output — published by Actions, never committed.
+public/
+
+# Generated image derivatives. Regenerating these is what the Actions cache is
+# for; committing them would multiply repo size by the width ladder.
+resources/
+
+.hugo_build.lock
+.DS_Store
+
+# Local-only working notes. This repo is public.
+CLAUDE.md
+
+# Local tool state. Covered by a global ignore on one machine, but that does not
+# travel with a clone — keep the rule here too.
+.claude/settings.local.json

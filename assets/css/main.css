@@ -1,0 +1,120 @@
+/* edtan.ca — one stylesheet, no framework.
+   Photos carry the page; the type gets out of their way. */
+
+:root {
+  --measure: 56rem;
+  --gap: 1.5rem;
+  --bg: #fff;
+  --fg: #1a1a1a;
+  --muted: #6b6b6b;
+  --rule: #e4e4e4;
+  --link: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --fg: #e8e8e8;
+    --muted: #9a9a9a;
+    --rule: #2a2a2a;
+    --link: #e8e8e8;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 1.25rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--link); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* ---- chrome ---- */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-items: baseline;
+  justify-content: space-between;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-title { font-weight: 600; text-decoration: none; letter-spacing: -0.01em; }
+.site-header nav { display: flex; gap: 1rem; }
+.site-header nav a { color: var(--muted); text-decoration: none; }
+.site-header nav a:hover { color: var(--fg); }
+
+main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 0; }
+
+.site-footer {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2rem 0;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ---- type ---- */
+
+h1 { font-size: 1.9rem; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 0.4rem; }
+h2 { font-size: 1.3rem; letter-spacing: -0.01em; }
+h2 a { text-decoration: none; }
+
+.meta { color: var(--muted); font-size: 0.875rem; margin: 0; }
+.entry-header { margin-bottom: 2rem; }
+
+.prose { max-width: 38rem; }
+.prose img { margin: 2rem 0; }
+.prose pre { overflow-x: auto; padding: 1rem; background: var(--rule); border-radius: 4px; }
+.prose code { font-size: 0.9em; }
+
+/* ---- galleries ---- */
+
+.gallery figure { margin: 0 0 3rem; }
+.gallery figcaption {
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  max-width: 38rem;
+}
+
+.grid {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+
+.grid a { text-decoration: none; display: block; }
+.grid img { margin-bottom: 0.6rem; }
+.grid-title { display: block; font-weight: 600; }
+.grid .meta { display: block; }
+
+/* ---- lists ---- */
+
+.entry-list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.entry-list li { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.entry-list .meta { margin-left: 0.5rem; }
+.summary { margin: 0.4rem 0 0; color: var(--muted); }
+
+.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 2rem 0 0; }
+.tags a { color: var(--muted); font-size: 0.875rem; }
+
+/* Hugo's internal pagination template */
+.pagination { display: flex; gap: 0.75rem; list-style: none; padding: 0; margin: 2.5rem 0 0; }
+.pagination .disabled { display: none; }

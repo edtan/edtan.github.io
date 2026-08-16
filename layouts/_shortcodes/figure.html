@@ -1,0 +1,12 @@
+{{/* Inline figure for prose. Routes through image.html so body images get the
+     same width ladder as gallery images — do not swap this for Hugo's built-in
+     figure shortcode, which emits a bare <img> with no srcset. */}}
+<figure>
+  {{ partial "image.html" (dict
+      "page"  .Page
+      "src"   (.Get "src")
+      "alt"   (.Get "alt")
+      "sizes" (or (.Get "sizes") "(min-width: 60rem) 38rem, 100vw")
+  ) }}
+  {{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

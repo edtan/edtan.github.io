@@ -1,0 +1,81 @@
+{{/*
+  Responsive image. THE single place that knows how a `src` becomes a URL —
+  keep it that way, it's the seam that makes moving media to an external
+  origin a one-file change.
+
+  Params:
+    page   (required) page whose bundle holds the image
+    src    (required) filename within the page bundle, e.g. "boat.webp"
+    alt              alt text; "" marks the image decorative
+    sizes            CSS `sizes` attribute
+    eager            true = skip lazy-loading (use for the first image on a page)
+    class            extra class on the <img>
+    quality          WebP quality, default 82
+
+  Emits a plain <img srcset> rather than <picture>: sources are already WebP
+  and every browser that supports WebP supports srcset, so there is no format
+  fallback to negotiate. Revisit only if AVIF is enabled.
+*/}}
+
+{{- $page := .page -}}
+{{- $src := .src -}}
+{{- $alt := .alt | default "" -}}
+{{- $sizes := .sizes | default "(min-width: 60rem) 56rem, 100vw" -}}
+{{- $eager := .eager | default false -}}
+{{- $class := .class | default "" -}}
+{{- $quality := .quality | default 82 -}}
+
+{{- $r := $page.Resources.GetMatch $src -}}
+
+{{- if not $r -}}
+  {{- warnf "image.html: %q not found in bundle %q" $src $page.File.Path -}}
+{{- else -}}
+
+  {{/* Width ladder, capped at 2048. Never upscale: rungs wider than the
+       original are dropped, and when the original is narrower than the top
+       rung it becomes the top rung itself. The 2560 source is deliberately
+       never emitted — an unreferenced bundle resource stays out of public/,
+       which is what keeps it off the published-size budget. */}}
+  {{- $ladder := slice 480 768 1200 1600 2048 -}}
+  {{- $ow := $r.Width -}}
+  {{- $widths := slice -}}
+  {{- range $ladder -}}
+    {{- if lt . $ow -}}
+      {{- $widths = $widths | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if le $ow 2048 -}}
+    {{- $widths = $widths | append $ow -}}
+  {{- end -}}
+
+  {{- $derivs := slice -}}
+  {{- range $widths -}}
+    {{- $derivs = $derivs | append ($r.Resize (printf "%dx webp q%d" . $quality)) -}}
+  {{- end -}}
+
+  {{- $srcset := slice -}}
+  {{- range $derivs -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" .RelPermalink .Width) -}}
+  {{- end -}}
+
+  {{/* Fallback src: largest rung <= 1200, so a client ignoring srcset does
+       not pull the 2048. */}}
+  {{- $fallback := index $derivs 0 -}}
+  {{- range $derivs -}}
+    {{- if le .Width 1200 -}}
+      {{- $fallback = . -}}
+    {{- end -}}
+  {{- end -}}
+
+  <img
+    src="{{ $fallback.RelPermalink }}"
+    srcset="{{ delimit $srcset ", " }}"
+    sizes="{{ $sizes }}"
+    width="{{ $fallback.Width }}"
+    height="{{ $fallback.Height }}"
+    alt="{{ $alt }}"
+    loading="{{ if $eager }}eager{{ else }}lazy{{ end }}"
+    decoding="async"
+    {{ with $class }}class="{{ . }}"{{ end }}>
+
+{{- end -}}

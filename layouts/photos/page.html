@@ -1,0 +1,29 @@
+{{ define "main" }}
+<article class="photoset">
+  <header class="entry-header">
+    <h1>{{ .Title }}</h1>
+    <p class="meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+      {{- with .Params.location }} · <span class="location">{{ . }}</span>{{ end -}}
+    </p>
+  </header>
+
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  {{/* The first image renders eagerly — it is the LCP element on this page. */}}
+  <div class="gallery">
+    {{- range $i, $img := .Params.images }}
+    <figure>
+      {{ partial "image.html" (dict
+          "page"  $
+          "src"   $img.src
+          "alt"   $img.alt
+          "eager" (eq $i 0)
+          "sizes" "(min-width: 60rem) 56rem, 100vw"
+      ) }}
+      {{- with $img.caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+    </figure>
+    {{- end }}
+  </div>
+</article>
+{{ end }}

@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article>
+  <header class="entry-header">
+    <h1>{{ .Title }}</h1>
+    {{ if not .Date.IsZero }}
+    <p class="meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+    </p>
+    {{ end }}
+  </header>
+
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{- with .Params.tags }}
+  <ul class="tags">
+    {{- range . }}
+    <li><a href="{{ (urlize (printf "/tags/%s" .)) | relURL }}">{{ . }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</article>
+{{ end }}

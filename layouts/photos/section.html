@@ -1,0 +1,29 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+<ul class="grid">
+  {{- range $i, $p := .Pages }}
+  <li>
+    <a href="{{ $p.RelPermalink }}">
+      {{- with $p.Params.cover }}
+        {{ partial "image.html" (dict
+            "page"  $p
+            "src"   .
+            "alt"   ""
+            "eager" (lt $i 2)
+            "sizes" "(min-width: 60rem) 28rem, (min-width: 40rem) 45vw, 100vw"
+        ) }}
+      {{- end }}
+      <span class="grid-title">{{ $p.Title }}</span>
+      <span class="meta">
+        <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "Jan 2, 2006" }}</time>
+        {{- with $p.Params.location }} · {{ . }}{{ end -}}
+      </span>
+    </a>
+  </li>
+  {{- end }}
+</ul>
+
+{{ template "_internal/pagination.html" . }}
+{{ end }}

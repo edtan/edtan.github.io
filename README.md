@@ -8,26 +8,22 @@ service in the publishing path.
 
 ### Prerequisites
 
-Hugo **extended** — the standard edition will not work, as the site encodes WebP
-during the build.
+Hugo 0.164 or newer.
 
 ```bash
 # macOS
 brew install hugo
 
-# Arch / Manjaro (the packaged build is extended)
+# Arch / Manjaro
 sudo pacman -S hugo
 
-# Any platform with Go 1.21+ and a C compiler
-CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@latest
+# Any platform with Go 1.21+
+go install github.com/gohugoio/hugo@latest
 ```
 
-Verify the binary reports `+extended`:
-
-```bash
-hugo version
-# hugo v0.164.0+extended ...
-```
+Either edition works — WebP encoding is present in both the standard and extended
+builds, and this site uses plain CSS rather than Sass. CI installs the extended
+build for parity, so that adding Sass later does not silently break the deployment.
 
 ### Development server
 
@@ -37,7 +33,7 @@ hugo server -D
 
 Serves on <http://localhost:1313> with drafts (`-D`) visible and live reload. The
 first run encodes every image derivative and takes a few seconds; subsequent runs are
-near-instant because results are cached in `resources/`.
+near-instant because derivatives are cached between builds and never re-encoded.
 
 To check the site on a phone or tablet on the same network, bind to all interfaces
 and set `baseURL` to the machine's LAN address — Hugo generates absolute URLs for
@@ -134,6 +130,22 @@ through it; adding a `<img>` tag directly to a template would bypass the ladder.
 Content can be edited by hand, or through [Sveltia CMS](https://sveltiacms.app/) at
 `/admin` on the live site, which commits directly to this repository. The CMS is
 authenticated against GitHub and is only usable by accounts with write access.
+
+## Deployment
+
+Pushing to `master` triggers `.github/workflows/deploy.yml`, which builds the site
+and publishes it to GitHub Pages. There is no manual deploy step; the CMS commits to
+`master`, which is what triggers a build.
+
+The workflow caches Hugo's generated image derivatives between runs. This is not an
+optimisation — without it, every deploy re-encodes the entire photo archive, so build
+time would grow with the number of photos ever published rather than with the number
+just added.
+
+Two checks run before anything is published:
+
+- the build fails if full-size originals were published alongside their derivatives
+- the published size is printed, to track against the 1 GB Pages limit
 
 ## Layout
 

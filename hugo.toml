@@ -46,6 +46,13 @@ buildFuture = false
     startLevel = 2
     endLevel = 3
 
+# Keep generated image derivatives under :cacheDir rather than resources/, so CI
+# can restore a single cache directory. Without this the ladder is regenerated on
+# every run — see the build-caching notes in README.
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
 [taxonomies]
   tag = "tags"
 

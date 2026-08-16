@@ -9,7 +9,7 @@
   {{- range $i, $p := . }}
   <li>
     <a href="{{ $p.RelPermalink }}">
-      {{- with $p.Params.cover }}
+      {{- with partial "cover-src.html" $p }}
         {{ partial "image.html" (dict
             "page"  $p
             "src"   .

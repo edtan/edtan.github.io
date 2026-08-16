@@ -1,0 +1,18 @@
+{{- /*
+  Resolves a photo set's cover image filename.
+
+  `cover` is an optional override. When it is empty the first image in the set
+  is used, so a set is never thumbnail-less just because the field was skipped —
+  which matters most on a phone, where every optional field is friction.
+
+  Returns "" only when the set has no cover and no images at all.
+
+  Call: {{ $cover := partial "cover-src.html" $page }}
+*/ -}}
+{{- $cover := .Params.cover -}}
+{{- if not $cover -}}
+  {{- with .Params.images -}}
+    {{- $cover = (index . 0).src -}}
+  {{- end -}}
+{{- end -}}
+{{- return $cover -}}

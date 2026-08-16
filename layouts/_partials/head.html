@@ -23,8 +23,9 @@
 <meta property="og:url" content="{{ .Permalink }}">
 
 {{/* Social card: the cover image, at a fixed 1200w rung. Resolved here rather
-     than through image.html because OG needs one absolute URL, not a srcset. */}}
-{{- with .Params.cover }}
+     than through image.html because OG needs one absolute URL, not a srcset.
+     Uses the same cover-fallback rule as the index grids. */}}
+{{- with partial "cover-src.html" . }}
   {{- with $.Resources.GetMatch . }}
     {{- with .Resize "1200x webp q82" }}
 <meta property="og:image" content="{{ .Permalink }}">

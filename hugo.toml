@@ -1,7 +1,6 @@
 baseURL = "https://edtan.ca/"
 locale = "en-ca"
 title = "Ed Tan"
-copyright = "Ed Tan"
 
 # Actions checks out with fetch-depth: 1, so git metadata is not available.
 enableGitInfo = false

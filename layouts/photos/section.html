@@ -1,9 +1,12 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+</header>
 
+{{- with .Pages }}
 <ul class="grid">
-  {{- range $i, $p := .Pages }}
+  {{- range $i, $p := . }}
   <li>
     <a href="{{ $p.RelPermalink }}">
       {{- with $p.Params.cover }}
@@ -12,12 +15,14 @@
             "src"   .
             "alt"   ""
             "eager" (lt $i 2)
-            "sizes" "(min-width: 60rem) 28rem, (min-width: 40rem) 45vw, 100vw"
+            "sizes" "(min-width: 64rem) 20rem, (min-width: 40rem) 45vw, 100vw"
         ) }}
+      {{- else }}
+        <span class="no-cover"></span>
       {{- end }}
       <span class="grid-title">{{ $p.Title }}</span>
       <span class="meta">
-        <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "Jan 2, 2006" }}</time>
+        <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "January 2006" }}</time>
         {{- with $p.Params.location }} · {{ . }}{{ end -}}
       </span>
     </a>
@@ -25,5 +30,8 @@
   {{- end }}
 </ul>
 
-{{ template "_internal/pagination.html" . }}
+{{ template "_internal/pagination.html" $ }}
+{{- else }}
+<p class="empty">No photo sets yet.</p>
+{{- end }}
 {{ end }}

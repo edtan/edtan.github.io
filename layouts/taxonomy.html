@@ -1,8 +1,15 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+</header>
+
+{{- with .Pages }}
 <ul class="tags">
-  {{- range .Pages }}
-  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="meta">{{ len .Pages }}</span></li>
+  {{- range . }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }} <span class="meta">{{ len .Pages }}</span></a></li>
   {{- end }}
 </ul>
+{{- else }}
+<p class="empty">No tags yet.</p>
+{{- end }}
 {{ end }}

@@ -1,14 +1,13 @@
 {{ define "main" }}
-<article class="photoset">
+<article>
   <header class="entry-header">
     <h1>{{ .Title }}</h1>
     <p class="meta">
       <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
-      {{- with .Params.location }} · <span class="location">{{ . }}</span>{{ end -}}
+      {{- with .Params.location }} · {{ . }}{{ end -}}
     </p>
+    {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
   </header>
-
-  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
 
   {{/* The first image renders eagerly — it is the LCP element on this page. */}}
   <div class="gallery">
@@ -19,11 +18,19 @@
           "src"   $img.src
           "alt"   $img.alt
           "eager" (eq $i 0)
-          "sizes" "(min-width: 60rem) 56rem, 100vw"
+          "sizes" "(min-width: 64rem) 64rem, 100vw"
       ) }}
       {{- with $img.caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
     </figure>
     {{- end }}
   </div>
+
+  {{- with .Params.tags }}
+  <ul class="tags">
+    {{- range . }}
+    <li><a href="{{ (urlize (printf "/tags/%s" .)) | relURL }}">{{ . }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
 </article>
 {{ end }}

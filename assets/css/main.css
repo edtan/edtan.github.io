@@ -1,120 +1,317 @@
 /* edtan.ca — one stylesheet, no framework.
-   Photos carry the page; the type gets out of their way. */
+   Photos carry the page; the typography stays out of their way.
+
+   Design notes, so future edits don't drift:
+   - Warm neutrals, never pure #000/#fff. Pure black beside a photograph reads
+     as a hole; warm off-white keeps prints looking like prints.
+   - One typeface (system sans), with hierarchy from size, weight, tracking and
+     colour rather than from a second family.
+   - Generous vertical rhythm. Whitespace is the entire design here.
+*/
 
 :root {
-  --measure: 56rem;
-  --gap: 1.5rem;
-  --bg: #fff;
-  --fg: #1a1a1a;
-  --muted: #6b6b6b;
-  --rule: #e4e4e4;
-  --link: #1a1a1a;
+  --measure-wide: 64rem;   /* galleries */
+  --measure-text: 34rem;   /* prose — ~70 characters */
+
+  --bg:        #fbfbfa;
+  --fg:        #1c1917;
+  --muted:     #78716c;
+  --faint:     #a8a29e;
+  --rule:      #e7e5e4;
+  --surface:   #f5f5f4;
+
+  --step: 1.5rem;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111;
-    --fg: #e8e8e8;
-    --muted: #9a9a9a;
-    --rule: #2a2a2a;
-    --link: #e8e8e8;
+    --bg:      #0f0f0e;
+    --fg:      #e7e5e4;
+    --muted:   #a8a29e;
+    --faint:   #78716c;
+    --rule:    #292524;
+    --surface: #1c1917;
   }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
+html { -webkit-text-size-adjust: 100%; }
+
 body {
   margin: 0;
-  padding: 0 1.25rem;
+  padding: 0 clamp(1.25rem, 5vw, 2.5rem);
   background: var(--bg);
   color: var(--fg);
-  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
-  -webkit-text-size-adjust: 100%;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; height: auto; display: block; }
+img { display: block; max-width: 100%; height: auto; }
 
-a { color: var(--link); text-underline-offset: 0.15em; }
-a:hover { text-decoration-thickness: 2px; }
+a { color: inherit; }
 
-/* ---- chrome ---- */
+:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ---------- shared rhythm ---------- */
+
+.wrap { max-width: var(--measure-wide); margin-inline: auto; }
+
+/* ---------- header ---------- */
 
 .site-header {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+  padding: 2.5rem 0 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap);
+  gap: 1rem var(--step);
   align-items: baseline;
   justify-content: space-between;
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--rule);
 }
 
-.site-title { font-weight: 600; text-decoration: none; letter-spacing: -0.01em; }
-.site-header nav { display: flex; gap: 1rem; }
-.site-header nav a { color: var(--muted); text-decoration: none; }
-.site-header nav a:hover { color: var(--fg); }
+.site-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
 
-main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 0; }
+.site-nav { display: flex; gap: 1.5rem; }
 
-.site-footer {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 2rem 0;
-  border-top: 1px solid var(--rule);
+.site-nav a {
+  font-size: 0.9375rem;
   color: var(--muted);
-  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.15s ease;
 }
 
-/* ---- type ---- */
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { color: var(--fg); }
 
-h1 { font-size: 1.9rem; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 0.4rem; }
-h2 { font-size: 1.3rem; letter-spacing: -0.01em; }
-h2 a { text-decoration: none; }
+/* ---------- layout ---------- */
 
-.meta { color: var(--muted); font-size: 0.875rem; margin: 0; }
-.entry-header { margin-bottom: 2rem; }
+main {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+  padding-bottom: clamp(4rem, 10vw, 7rem);
+  min-height: 60vh;
+}
 
-.prose { max-width: 38rem; }
-.prose img { margin: 2rem 0; }
-.prose pre { overflow-x: auto; padding: 1rem; background: var(--rule); border-radius: 4px; }
-.prose code { font-size: 0.9em; }
+/* ---------- typography ---------- */
 
-/* ---- galleries ---- */
+h1, h2, h3 {
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  text-wrap: balance;
+}
 
-.gallery figure { margin: 0 0 3rem; }
-.gallery figcaption {
-  margin-top: 0.6rem;
+h1 { font-size: clamp(1.75rem, 1.2rem + 2vw, 2.375rem); margin: 0 0 0.5rem; }
+h2 { font-size: 1.125rem; letter-spacing: 0.01em; margin: 0; }
+
+/* Section eyebrow — small, tracked-out, quiet. Carries hierarchy without
+   needing a second typeface. */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 var(--step);
+}
+
+.eyebrow a { text-decoration: none; }
+.eyebrow a:hover { color: var(--fg); }
+
+.meta {
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
   color: var(--muted);
-  font-size: 0.875rem;
-  max-width: 38rem;
+  margin: 0;
 }
+
+.entry-header { margin-bottom: 3rem; }
+.page-header  { margin-bottom: 2.5rem; }
+.entry-header .prose { margin-top: 1.5rem; }
+
+/* ---------- prose ---------- */
+
+.prose { max-width: var(--measure-text); }
+.prose > * + * { margin-top: 1.25em; }
+.prose h2 { margin-top: 2.5em; font-size: 1.25rem; letter-spacing: -0.01em; }
+.prose h3 { margin-top: 2em; font-size: 1.0625rem; }
+.prose a { text-decoration: underline; text-underline-offset: 0.2em;
+           text-decoration-thickness: 1px; text-decoration-color: var(--faint); }
+.prose a:hover { text-decoration-color: currentColor; }
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--rule);
+  color: var(--muted);
+}
+
+.prose code { font-family: var(--mono); font-size: 0.9em; }
+.prose pre {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-radius: 3px;
+  overflow-x: auto;
+}
+.prose pre code { font-size: inherit; }
+
+.prose hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+
+/* Inline figures in prose keep the text measure, not the wide measure. */
+.prose figure { margin: 2.5rem 0; }
+
+/* ---------- galleries ---------- */
+
+.gallery { margin-top: 3rem; }
+
+.gallery figure { margin: 0 0 clamp(3rem, 7vw, 5rem); }
+
+/* Cap height rather than width. At the 64rem measure a 2:3 portrait would
+   render ~1024x1536 — taller than most viewports, so the frame could never be
+   seen whole. Landscape still fills the column; portrait is bounded by height
+   and stays left-aligned so its caption lines up with its edge. */
+.gallery img {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+}
+
+figcaption {
+  margin-top: 0.875rem;
+  max-width: var(--measure-text);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- index grid ---------- */
 
 .grid {
   list-style: none;
-  margin: 1.5rem 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
-  gap: var(--gap);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
 }
 
-.grid a { text-decoration: none; display: block; }
-.grid img { margin-bottom: 0.6rem; }
-.grid-title { display: block; font-weight: 600; }
-.grid .meta { display: block; }
+.grid a { display: block; text-decoration: none; }
 
-/* ---- lists ---- */
+/* Uniform crop on the index so rows align regardless of orientation; the photo
+   page still shows every image at its true aspect ratio. */
+.grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--surface);
+  transition: opacity 0.2s ease;
+}
 
-.entry-list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
-.entry-list li { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
-.entry-list .meta { margin-left: 0.5rem; }
-.summary { margin: 0.4rem 0 0; color: var(--muted); }
+.grid a:hover img { opacity: 0.88; }
 
-.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 2rem 0 0; }
-.tags a { color: var(--muted); font-size: 0.875rem; }
+.grid-title {
+  display: block;
+  margin-top: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
 
-/* Hugo's internal pagination template */
-.pagination { display: flex; gap: 0.75rem; list-style: none; padding: 0; margin: 2.5rem 0 0; }
+.grid .meta { margin-top: 0.125rem; }
+
+/* Placeholder for a set with no cover image yet. */
+.grid .no-cover {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--surface);
+}
+
+/* ---------- entry lists ---------- */
+
+.entry-list { list-style: none; margin: 0; padding: 0; }
+
+.entry-list li { border-top: 1px solid var(--rule); }
+.entry-list li:last-child { border-bottom: 1px solid var(--rule); }
+
+.entry-list a {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.entry-list a:hover { opacity: 0.6; }
+
+.entry-title { font-weight: 500; letter-spacing: -0.01em; }
+.entry-list .summary { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 0.9375rem; }
+
+/* ---------- tags ---------- */
+
+.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 3rem 0 0; }
+
+.tags a {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.tags a:hover { color: var(--fg); border-color: var(--faint); }
+
+/* ---------- empty states ---------- */
+
+.empty {
+  padding: 3rem 0;
+  color: var(--faint);
+  font-size: 0.9375rem;
+}
+
+/* ---------- sections on the home page ---------- */
+
+.home-section + .home-section { margin-top: clamp(3.5rem, 8vw, 5.5rem); }
+
+/* ---------- pagination ---------- */
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 4rem 0 0;
+  font-size: 0.9375rem;
+}
+
 .pagination .disabled { display: none; }
+.pagination a { color: var(--muted); text-decoration: none; }
+.pagination a:hover { color: var(--fg); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

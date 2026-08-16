@@ -1,9 +1,12 @@
 {{ define "main" }}
-{{ with .Content }}<div class="prose intro">{{ . }}</div>{{ end }}
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
 
-{{- with (where site.RegularPages "Section" "photos") }}
-<section>
-  <h2><a href="{{ "/photos/" | relURL }}">Photos</a></h2>
+{{ $photos := where site.RegularPages "Section" "photos" }}
+{{ $posts  := where site.RegularPages "Section" "posts" }}
+
+<section class="home-section">
+  <p class="eyebrow"><a href="{{ "/photos/" | relURL }}">Photos</a></p>
+  {{- with $photos }}
   <ul class="grid">
     {{- range $i, $p := first 6 . }}
     <li>
@@ -14,30 +17,40 @@
               "src"   .
               "alt"   ""
               "eager" (lt $i 2)
-              "sizes" "(min-width: 60rem) 28rem, (min-width: 40rem) 45vw, 100vw"
+              "sizes" "(min-width: 64rem) 20rem, (min-width: 40rem) 45vw, 100vw"
           ) }}
+        {{- else }}
+          <span class="no-cover"></span>
         {{- end }}
         <span class="grid-title">{{ $p.Title }}</span>
+        <span class="meta">
+          <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "January 2006" }}</time>
+          {{- with $p.Params.location }} · {{ . }}{{ end -}}
+        </span>
       </a>
     </li>
     {{- end }}
   </ul>
+  {{- else }}
+  <p class="empty">Nothing here yet.</p>
+  {{- end }}
 </section>
-{{- end }}
 
-{{- with (where site.RegularPages "Section" "posts") }}
-<section>
-  <h2><a href="{{ "/posts/" | relURL }}">Writing</a></h2>
+<section class="home-section">
+  <p class="eyebrow"><a href="{{ "/posts/" | relURL }}">Writing</a></p>
+  {{- with $posts }}
   <ul class="entry-list">
     {{- range first 5 . }}
     <li>
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      <span class="meta">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-      </span>
+      <a href="{{ .RelPermalink }}">
+        <span class="entry-title">{{ .Title }}</span>
+        <span class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2006" }}</time></span>
+      </a>
     </li>
     {{- end }}
   </ul>
+  {{- else }}
+  <p class="empty">Nothing here yet.</p>
+  {{- end }}
 </section>
-{{- end }}
 {{ end }}

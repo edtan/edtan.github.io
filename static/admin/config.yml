@@ -1,0 +1,101 @@
+## Sveltia CMS — https://sveltiacms.app
+## This file is public. It contains no secrets: authentication is a GitHub token
+## supplied at sign-in, never stored here.
+
+backend:
+  name: github
+  repo: edtan/edtan.github.io
+  branch: master
+  ## No base_url: that key points at an OAuth client, which this setup does not
+  ## use. Sign in with a fine-grained token scoped to this repository only.
+
+site_url: https://edtan.ca
+
+## Browser-side image processing, applied BEFORE the commit. This is the whole
+## reason media lives in git: a 12 MP phone photo is downscaled and transcoded to
+## WebP in the browser, so what lands in the repository is ~400 KB, not ~5 MB.
+## It also sidesteps HEIC, which browsers cannot render.
+## Note: transformations apply to internal (git) storage only — they are ignored
+## by remote media libraries such as S3.
+media_libraries:
+  default:
+    config:
+      max_file_size: 26214400 # 25 MiB, before transformation
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 2560
+          height: 2560
+
+collections:
+  - name: photos
+    label: Photo Sets
+    label_singular: Photo Set
+    icon: photo_library
+    folder: content/photos
+    create: true
+    format: yaml-frontmatter
+    ## Hugo leaf bundle: index.md plus its images in one directory.
+    ## Date prefix keeps the repository chronologically ordered and makes the
+    ## URL stable — Hugo derives the URL from this directory name.
+    path: '{{year}}-{{month}}-{{slug}}/index'
+    media_folder: ''
+    public_folder: ''
+    summary: '{{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime }
+      - { name: draft, label: Draft, widget: boolean, default: true }
+      - name: cover
+        label: Cover image
+        widget: image
+        required: false
+        hint: Used on the index grid and as the social card.
+      - { name: location, label: Location, widget: string, required: false }
+      - name: tags
+        label: Tags
+        widget: list
+        required: false
+      - name: images
+        label: Photos
+        label_singular: Photo
+        widget: list
+        collapsed: auto
+        summary: '{{alt}}'
+        fields:
+          - { name: src, label: Image, widget: image }
+          - name: alt
+            label: Alt text
+            widget: string
+            required: false
+            hint: Describe the photo for screen readers. Leave empty if decorative.
+          - { name: caption, label: Caption, widget: string, required: false }
+      - name: body
+        label: Intro
+        widget: markdown
+        required: false
+
+  - name: posts
+    label: Writing
+    label_singular: Post
+    icon: article
+    folder: content/posts
+    create: true
+    format: yaml-frontmatter
+    path: '{{slug}}/index'
+    media_folder: ''
+    public_folder: ''
+    summary: '{{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime }
+      - { name: draft, label: Draft, widget: boolean, default: true }
+      - { name: summary, label: Summary, widget: text, required: false }
+      - name: tags
+        label: Tags
+        widget: list
+        required: false
+      - { name: body, label: Body, widget: markdown }

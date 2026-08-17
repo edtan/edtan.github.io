@@ -22,6 +22,14 @@
 <meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
 <meta property="og:url" content="{{ .Permalink }}">
 
+{{/* GoatCounter. Production only, so local dev and CI previews stay out of the
+     stats. No cookies, no personal data, nothing to consent to. */}}
+{{- if hugo.IsProduction }}
+  {{- with site.Params.goatcounter }}
+<script data-goatcounter="{{ . }}" async src="https://gc.zgo.at/count.js"></script>
+  {{- end }}
+{{- end }}
+
 {{/* Social card: the cover image, at a fixed 1200w rung. Resolved here rather
      than through image.html because OG needs one absolute URL, not a srcset.
      Uses the same cover-fallback rule as the index grids. */}}

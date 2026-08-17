@@ -20,6 +20,11 @@ buildFuture = false
   [cascade.build]
     publishResources = false
 
+[params]
+  # GoatCounter endpoint. Set to "" to turn analytics off entirely; the script is
+  # only emitted for production builds, so `hugo server` never counts as a hit.
+  goatcounter = "https://edtan.goatcounter.com/count"
+
 [pagination]
   pagerSize = 12
 

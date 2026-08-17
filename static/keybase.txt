@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/edtan
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://edtan.ca
+  * I am edtan (https://keybase.io/edtan) on keybase.
+  * I have a public key ASCKZKLzvsosng8gSzSRMc6HTqfptH_RU1g2iFCW2pB8jAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01208a64a2f3beca2c9e0f204b349131ce874ea7e9b47fd1535836885096da907c8c0a",
+      "host": "keybase.io",
+      "kid": "01208a64a2f3beca2c9e0f204b349131ce874ea7e9b47fd1535836885096da907c8c0a",
+      "uid": "1b35aa1a2344440ea524168c709cc519",
+      "username": "edtan"
+    },
+    "merkle_root": {
+      "ctime": 1569018292,
+      "hash": "6770bd25ba9773ddf32e4746174ab755cf0af540cd3e42f5188251aba5d74c3fbccd525afabf14df82ee40c2d27abe05cb2706d2e00dbb058bb9006245418c1f",
+      "hash_meta": "b66b77798705130aa1861297a8e8c2497d9938f64ef9e69936e8d9ebf2384f7f",
+      "seqno": 7652322
+    },
+    "service": {
+      "entropy": "WM7cvP/zq3zOcE9daFzf6Zai",
+      "hostname": "edtan.ca",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.4.0"
+  },
+  "ctime": 1569018300,
+  "expire_in": 504576000,
+  "prev": "c59e11ad2b29047e9c386f40c35cbd2c0a9ff9df2822440dbfcbbd67cccde971",
+  "seqno": 28,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgimSi877KLJ4PIEs0kTHOh06n6bR/0VNYNohQltqQfIwKp3BheWxvYWTESpcCHMQgxZ4RrSspBH6cOG9Aw1y9LAqf+d8oIkQNv8u9Z8zN6XHEIJ4nCE4Wg1bnbzXGfhP3Bqdyo4xUe5CVsNvuduhe+xuIAgHCo3NpZ8RAPjpmwgny9gNDlkmP01stegz77oH3YhcU2iqWMwbTcoG7h7/8A/oq0X4UUBlqDHWCtSFAEfHzhCXvDzIZt0jKCKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIPf1TyUCj11xpgljIHrslvXGofbOgEvE8ObeUEIGE9sxo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/edtan
+
+==================================================================
